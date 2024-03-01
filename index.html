@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced To-Do List</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    #todo-container {
+      max-width: 400px;
+      margin: 20px auto;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    #todo-header {
+      background-color: #3498db;
+      color: #fff;
+      padding: 15px;
+      font-size: 24px;
+    }
+
+    #todo-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .todo-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      font-size: 18px;
+    }
+
+    .todo-item input[type="checkbox"] {
+      margin-bottom: 10px;
+    }
+
+    .todo-item span {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .todo-item button {
+      background-color: #e74c3c;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 5px;
+    }
+
+    #add-todo, #add-time, #add-details {
+      width: calc(100% - 30px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-top: 1px solid #eee;
+      font-size: 16px;
+    }
+
+    #add-todo:focus, #add-time:focus, #add-details:focus {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="todo-container">
+    <div id="todo-header">Enhanced To-Do List</div>
+    <ul id="todo-list"></ul>
+    <input type="text" id="add-todo" placeholder="Task">
+    <input type="text" id="add-time" placeholder="Time">
+    <input type="text" id="add-details" placeholder="Details">
+    <button onclick="addTodo()">Add Task</button>
+  </div>
+
+  <script>
+    const todoList = document.getElementById('todo-list');
+    const addTodoInput = document.getElementById('add-todo');
+    const addTimeInput = document.getElementById('add-time');
+    const addDetailsInput = document.getElementById('add-details');
+
+    function addTodo() {
+      const todoText = addTodoInput.value.trim();
+      const todoTime = addTimeInput.value.trim();
+      const todoDetails = addDetailsInput.value.trim();
+
+      if (todoText !== '') {
+        const todoItem = document.createElement('li');
+        todoItem.className = 'todo-item';
+        todoItem.innerHTML = `
+          <input type="checkbox">
+          <span><strong>Task:</strong> ${todoText}</span>
+          <span><strong>Time:</strong> ${todoTime}</span>
+          <span><strong>Details:</strong> ${todoDetails}</span>
+          <button onclick="removeTodo(this)">Remove</button>
+        `;
+        todoList.appendChild(todoItem);
+
+        // Clear input fields
+        addTodoInput.value = '';
+        addTimeInput.value = '';
+        addDetailsInput.value = '';
+      }
+    }
+
+    function removeTodo(button) {
+      const todoItem = button.parentElement;
+      todoList.removeChild(todoItem);
+    }
+  </script>
+</body>
+</html>
